@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useColorScheme } from 'react-native';
-
+ 
 type ThemeContextType = {
   isDarkMode: boolean;
   toggleTheme: () => void;
@@ -10,6 +10,7 @@ type ThemeContextType = {
     tabBar: string;
     tabBarActive: string;
     tabBarInactive: string;
+    backgroundSecondary: string; 
 
     // Text hierarchy
     textPrimary: string;
@@ -53,7 +54,9 @@ type ThemeContextType = {
     disabled: string;
     icon: string;
     link: string;
-
+    inputField: string;
+    iconSecondary: string;
+  
     // Social colors
     facebook: string;
     google: string;
@@ -82,6 +85,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     background: isDarkMode ? '#000000' : '#FFFFFF',
     backgroundLight: isDarkMode ? '#1C1C1E' : '#F5F5F5',
     backgroundDark: isDarkMode ? '#121212' : '#E5E5E5',
+    backgroundSecondary: isDarkMode ? '#1C1C1E' : '#F0F0F0',
 
     // Text hierarchy
     textPrimary: isDarkMode ? '#FFFFFF' : '#000000',
@@ -131,6 +135,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     disabled: isDarkMode ? '#3C3C3E' : '#D1D1D6',
     icon: isDarkMode ? '#FFFFFF' : '#1C1C1E',
     link: '#0A84FF',
+    inputField: isDarkMode ? '#2C2C2E' : '#F4F4F4',
+    iconSecondary: isDarkMode ? '#A1A1A1' : '#6F767E',
 
     // Social colors
     facebook: '#1877F2',

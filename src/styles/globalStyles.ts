@@ -1,21 +1,35 @@
-import { StyleSheet } from 'react-native';
-import { SPACING } from './constants';
-import { useColors } from '../context/ThemeContext';
+import {StyleSheet} from 'react-native';
+import {SPACING} from './constants';
+import {useColors} from '../context/ThemeContext';
 
 export const useStyles = () => {
-  const { colors } = useColors();
+  const {colors} = useColors();
 
   return StyleSheet.create({
-
     listContainer: {
       paddingHorizontal: SPACING.md,
       flexGrow: 1,
-      width: "100%",
+      width: '100%',
     },
     // Container styles
     container: {
       flex: 1,
     },
+    cardContainer: {
+      backgroundColor: colors.background,
+      paddingVertical: 16,
+      paddingHorizontal: 16,
+      borderRadius: 16,
+      shadowColor: colors.shadow,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 1.84,
+      marginHorizontal: 16,
+    },
+
     centerContainer: {
       flex: 1,
       justifyContent: 'center',
@@ -45,11 +59,15 @@ export const useStyles = () => {
       alignItems: 'center',
     },
 
-
     scrollContainer: {
       flexGrow: 1,
       paddingVertical: SPACING.xs,
       paddingHorizontal: SPACING.md,
+    },
+
+    scrollContainerBg: {
+      flexGrow: 1,
+      backgroundColor: colors.background,
     },
 
     // Text styles
@@ -57,19 +75,32 @@ export const useStyles = () => {
       fontSize: 28,
       fontWeight: 'bold',
       marginBottom: SPACING.sm,
-      textAlign: 'center',
       color: colors.textPrimary,
       fontFamily: 'Sora',
     },
     subtitle: {
       fontSize: 16,
       marginBottom: SPACING.lg,
-      textAlign: 'center',
       color: colors.textSecondary,
       fontFamily: 'Sora',
     },
+
+    textTitle: {
+      fontSize: 18,
+      fontWeight: 'bold', 
+      color: colors.textPrimary,
+      fontFamily: 'Sora',
+    },
+
+    textSubtitle: {
+      fontSize: 14,
+      fontWeight: 'bold', 
+      color: colors.textPrimary,
+      fontFamily: 'Sora',
+    },
+
     heading: {
-      fontSize: 24,
+      fontSize: 22,
       fontWeight: 'bold',
       color: colors.textPrimary,
       fontFamily: 'Sora',
@@ -99,7 +130,7 @@ export const useStyles = () => {
       color: colors.textPrimary,
     },
     labelContainer: {
-      marginHorizontal: 6, 
+      marginHorizontal: 6,
       marginVertical: 6,
     },
 
@@ -138,7 +169,6 @@ export const useStyles = () => {
 
     // Card styles
     card: {
-    
       padding: SPACING.md,
       borderRadius: 16,
       marginBottom: SPACING.md,
