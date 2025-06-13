@@ -15,6 +15,15 @@ import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import {useColors} from '../../context/ThemeContext';
 import {useStyles} from '../../styles/globalStyles';
 import {SpaceH, SpaceV} from '../../components/space/Space';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  NotificationDetails: undefined;
+  // Add other screens here as needed
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const OUTER_MARGIN = 12;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -98,12 +107,6 @@ export const Overview = () => {
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <HeaderTopRow
         title="Overview"
-        custom={
-          <View style={stylesRecent.dropdown}>
-            <Text style={[stylesRecent.dropdownText, {color: colors.textSecondary}]}>This week</Text>
-            <IconMaterial name="keyboard-arrow-down" size={24} color={colors.iconSecondary} />
-          </View>
-        }
         lineColor={'#CABDFF'}
       />
       <View style={styles.grid}>
@@ -178,9 +181,9 @@ const styles = StyleSheet.create({
 
 export const Header = () => {
   const {colors} = useColors();
+  const navigation = useNavigation<NavigationProp>();
   return (
     <View style={[stylesHeader.wrapper, {backgroundColor: colors.background}]}>
-      {/* Top Row: Logo + Icons */}
       <View style={stylesHeader.topRow}>
         <View style={stylesHeader.logoContainer}>
           <Image
@@ -189,7 +192,10 @@ export const Header = () => {
           />
         </View>
         <View style={stylesHeader.iconContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('SettingsNotification' as never)
+            }>
             <Icon
               name="users"
               size={22}
@@ -370,8 +376,18 @@ export const InsightsCard = () => {
         title="Insights"
         custom={
           <View style={stylesRecent.dropdown}>
-            <Text style={[stylesRecent.dropdownText, {color: colors.textSecondary}]}>28 Dec – 10,2024</Text>
-            <IconMaterial name="keyboard-arrow-down" size={24} color={colors.iconSecondary} />
+            <Text
+              style={[
+                stylesRecent.dropdownText,
+                {color: colors.textSecondary},
+              ]}>
+              28 Dec – 10,2024
+            </Text>
+            <IconMaterial
+              name="keyboard-arrow-down"
+              size={24}
+              color={colors.iconSecondary}
+            />
           </View>
         }
         lineColor={'#FFD88D'}
@@ -525,17 +541,10 @@ const jumpBackData = [
     image: 'https://i.imgur.com/UYiroysl.jpg',
     title: 'International Villagers',
     editedTime: 'Edited 46 hours ago',
-  },
-  {
-    id: '3',
-    image: 'https://i.imgur.com/UYiroysl.jpg',
-    title: 'Some Other Artist',
-    editedTime: 'Edited 3 days ago',
-  },
+  }
 ];
 
 export const JumpBackList = () => {
-
   const renderItem = ({item}: {item: (typeof jumpBackData)[0]}) => (
     <View style={stylesJump.cardItem}>
       <Image source={{uri: item.image}} style={stylesJump.image} />
@@ -553,13 +562,23 @@ export const JumpBackList = () => {
         title="Jump Back In"
         custom={
           <TouchableOpacity style={stylesRecent.dropdown}>
-            <Text style={[stylesRecent.dropdownText, {color: colors.textSecondary}]}>This week</Text>
-            <IconMaterial name="keyboard-arrow-down" size={24} color={colors.iconSecondary} />
+            <Text
+              style={[
+                stylesRecent.dropdownText,
+                {color: colors.textSecondary},
+              ]}>
+              This week
+            </Text>
+            <IconMaterial
+              name="keyboard-arrow-down"
+              size={24}
+              color={colors.iconSecondary}
+            />
           </TouchableOpacity>
         }
         lineColor={'#FFBC99'}
       />
- 
+
       <FlatList
         data={jumpBackData}
         keyExtractor={item => item.id}
@@ -664,43 +683,78 @@ const recentTracks = [
     id: '3',
     title: 'No 6',
     meta: '2019 • Album',
-    image:
-      'https://upload.wikimedia.org/wikipedia/en/4/45/Divide_cover.png',
+    image: 'https://upload.wikimedia.org/wikipedia/en/4/45/Divide_cover.png',
+  },
+  {
+    id: '3',
+    title: 'No 6',
+    meta: '2019 • Album',
+    image: 'https://upload.wikimedia.org/wikipedia/en/4/45/Divide_cover.png',
+  },
+  {
+    id: '3',
+    title: 'No 6',
+    meta: '2019 • Album',
+    image: 'https://upload.wikimedia.org/wikipedia/en/4/45/Divide_cover.png',
+  },
+  {
+    id: '3',
+    title: 'No 6',
+    meta: '2019 • Album',
+    image: 'https://upload.wikimedia.org/wikipedia/en/4/45/Divide_cover.png',
+  },
+  {
+    id: '3',
+    title: 'No 6',
+    meta: '2019 • Album',
+    image: 'https://upload.wikimedia.org/wikipedia/en/4/45/Divide_cover.png',
   },
 ];
 
 export const RecentTracks = () => {
   const {colors} = useColors();
   return (
-    <View>  
-    <View style={[styles.container, {backgroundColor: colors.background}]}>
-      
-      <HeaderTopRow
-        title="Recent Tracks"
-        custom={
-          <TouchableOpacity style={stylesRecent.dropdown}>
-            <Text style={[stylesRecent.dropdownText, {color: colors.textSecondary}]}>This week</Text>
-            <IconMaterial name="keyboard-arrow-down" size={24} color={colors.iconSecondary} />
-          </TouchableOpacity>
-        }
-        lineColor={'#FF99EF'}
-      />
-      {/* Track List */}
-      <FlatList
-        data={recentTracks}
-        horizontal
-        keyExtractor={item => item.id}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => (
-          <View style={stylesRecent.trackItem}>
-            <Image source={{uri: item.image}} style={stylesRecent.trackImage} />
-            <Text style={stylesRecent.trackTitle}>{item.title}</Text>
-            <Text style={stylesRecent.trackMeta}>{item.meta}</Text>
-          </View>
-        )}
-      />
-    </View>
-    <SpaceV size={16} />
+    <View>
+      <View style={[styles.container, {backgroundColor: colors.background}]}>
+        <HeaderTopRow
+          title="Recent Tracks"
+          custom={
+            <TouchableOpacity style={stylesRecent.dropdown}>
+              <Text
+                style={[
+                  stylesRecent.dropdownText,
+                  {color: colors.textSecondary},
+                ]}>
+                This week
+              </Text>
+              <IconMaterial
+                name="keyboard-arrow-down"
+                size={24}
+                color={colors.iconSecondary}
+              />
+            </TouchableOpacity>
+          }
+          lineColor={'#FF99EF'}
+        />
+        {/* Track List */}
+        <FlatList
+          data={recentTracks}
+          horizontal
+          keyExtractor={item => item.id}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({item}) => (
+            <View style={stylesRecent.trackItem}>
+              <Image
+                source={{uri: item.image}}
+                style={stylesRecent.trackImage}
+              />
+              <Text style={stylesRecent.trackTitle}>{item.title}</Text>
+              <Text style={stylesRecent.trackMeta}>{item.meta}</Text>
+            </View>
+          )}
+        />
+      </View>
+      <SpaceV size={16} />
     </View>
   );
 };
@@ -752,18 +806,18 @@ const stylesRecent = StyleSheet.create({
   dropdownText: {
     fontSize: 13,
     fontFamily: 'Sora',
-    fontWeight: '700', 
+    fontWeight: '700',
     marginRight: 4,
   },
   trackItem: {
     marginRight: 16,
     alignItems: 'center',
-    width: 80,
+    width: 100,
   },
   trackImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 8,
+    width: 100,
+    height: 100,
+    borderRadius: 10,
     marginBottom: 8,
   },
   trackTitle: {
@@ -802,4 +856,3 @@ const HeaderTopRow = ({
     </View>
   );
 };
- 

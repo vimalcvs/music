@@ -25,16 +25,6 @@ const SettingsDetails: React.FC<Props> = ({ route }) => {
       },
       headerTintColor: colors.textPrimary,
       headerShadowVisible: false,
-      headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
-        </TouchableOpacity>
-      ),
-      headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="ellipsis-vertical" size={24} color={colors.textPrimary} />
-        </TouchableOpacity>
-      ),
     });
   }, [navigation, colors]);
 
